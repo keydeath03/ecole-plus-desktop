@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>École+</title>
+    <style>
+      :root { color-scheme: light; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; min-height: 100vh; display: grid; place-items: center;
+        background: #f3f2f9; color: #17161d;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      .box { text-align: center; padding: 24px; max-width: 420px; }
+      .logo {
+        width: 76px; height: 76px; margin: 0 auto; border-radius: 22px; display: grid; place-items: center;
+        background: linear-gradient(160deg, #6d55f0, #4a33bf); box-shadow: 0 18px 40px -18px rgba(42, 31, 107, 0.6);
+      }
+      .logo svg { width: 46px; height: 46px; }
+      h1 { margin: 22px 0 6px; font-size: 26px; letter-spacing: -0.02em; }
+      p { margin: 0; color: #64748b; line-height: 1.5; }
+      .dots { margin-top: 22px; display: flex; gap: 8px; justify-content: center; }
+      .dots span { width: 8px; height: 8px; border-radius: 50%; background: #b3a4fb; animation: b 1s infinite ease-in-out; }
+      .dots span:nth-child(2) { animation-delay: 0.15s; } .dots span:nth-child(3) { animation-delay: 0.3s; }
+      @keyframes b { 0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
+      button {
+        margin-top: 24px; min-height: 48px; padding: 0 28px; border: 0; border-radius: 999px; cursor: pointer;
+        background: #5a41e0; color: #fff; font: 600 15px inherit; font-family: inherit;
+      }
+      button:hover { background: #4a33bf; }
+      [hidden] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 256 256" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 96l120-64 120 64-120 64z" /><path d="M188 240V128l-60-32" /><path d="M220 113v53.4a8 8 0 0 1-2 5.4C206.7 184.3 175.1 212 128 212s-78.7-27.7-90-40.2a8 8 0 0 1-2-5.4V113" />
+        </svg>
+      </div>
+      <div id="loading">
+        <h1>École+</h1>
+        <p>Ouverture de votre établissement…</p>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <div id="offline" hidden>
+        <h1>Pas de connexion internet</h1>
+        <p>École+ a besoin d'internet pour retrouver votre établissement. Vérifiez votre connexion, puis réessayez.</p>
+        <button id="retry" type="button">Réessayer</button>
+      </div>
+    </div>
+    <script>
+      // The address of the site: the same one as in src-tauri/src/main.rs.
+      const SITE = 'https://web-production-ff5770fd.up.railway.app';
+      const loading = document.getElementById('loading');
+      const offline = document.getElementById('offline');
+      async function open() {
+        loading.hidden = false;
+        offline.hidden = true;
+        try {
+          await fetch(SITE + '/bienvenue', { mode: 'no-cors', cache: 'no-store', signal: AbortSignal.timeout(15000) });
+          location.replace(SITE + '/login');
+        } catch {
+          loading.hidden = true;
+          offline.hidden = false;
+        }
+      }
+      document.getElementById('retry').addEventListener('click', open);
+      window.addEventListener('online', open);
+      open();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+# Builds the Windows and Mac installers and publishes them on the repository's Releases page.
+# Start it by pushing a version tag: git tag v1.0.1 && git push origin v1.0.1
+name: Publier
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            args: --target universal-apple-darwin
+            rust-targets: aarch64-apple-darwin,x86_64-apple-darwin
+          - os: windows-latest
+            args: ''
+            rust-targets: ''
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust-targets }}
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+      - run: npm ci
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: 'École+ ${{ github.ref_name }}'
+          releaseBody: "Application École+ pour Windows et Mac. Téléchargez EcolePlus-Windows.exe ou EcolePlus-Mac.dmg."
+          releaseDraft: false
+          prerelease: false
+          args: ${{ matrix.args }}
+      # The site links to fixed names (…/releases/latest/download/EcolePlus-Windows.exe), whatever the version.
+      - name: Fichiers aux noms fixes
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            cp "$(ls src-tauri/target/release/bundle/nsis/*-setup.exe | head -1)" EcolePlus-Windows.exe
+            gh release upload "$GITHUB_REF_NAME" EcolePlus-Windows.exe --clobber
+          else
+            cp "$(ls src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg | head -1)" EcolePlus-Mac.dmg
+            gh release upload "$GITHUB_REF_NAME" EcolePlus-Mac.dmg --clobber
+          fi

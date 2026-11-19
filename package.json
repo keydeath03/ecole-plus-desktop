@@ -1,0 +1,15 @@
+{
+  "name": "ecole-plus-desktop",
+  "private": true,
+  "version": "1.0.0",
+  "description": "École+ pour Windows et Mac",
+  "scripts": {
+    "tauri": "tauri",
+    "dev": "tauri dev",
+    "icons": "tauri icon app-icon.png",
+    "build": "tauri build"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2"
+  }
+}
