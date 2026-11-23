@@ -1,7 +1,7 @@
 {
   "name": "ecole-plus-desktop",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "École+ pour Windows et Mac",
   "scripts": {
     "tauri": "tauri",
