@@ -114,7 +114,11 @@
         loading.hidden = false;
         offline.hidden = true;
         try {
-          await fetch(SITE + '/bienvenue', { mode: 'no-cors', cache: 'no-store', signal: AbortSignal.timeout(15000) });
+          // The opening screen stays at least a moment, so that it is seen rather than flashing by.
+          await Promise.all([
+            fetch(SITE + '/bienvenue', { mode: 'no-cors', cache: 'no-store', signal: AbortSignal.timeout(15000) }),
+            new Promise((done) => setTimeout(done, 1600)),
+          ]);
           location.replace(SITE + '/login');
         } catch {
           loading.hidden = true;
