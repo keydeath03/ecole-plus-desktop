@@ -3,6 +3,6 @@
   "identifier": "default",
   "description": "The École+ site may ask the app to open a document in its own window.",
   "windows": ["main", "doc-*"],
-  "remote": { "urls": ["https://web-production-ff5770fd.up.railway.app/*"] },
+  "remote": { "urls": ["https://www.gerermonecole.com/*"] },
   "permissions": ["core:default"]
 }

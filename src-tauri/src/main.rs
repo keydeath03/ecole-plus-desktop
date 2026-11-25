@@ -8,7 +8,7 @@ use tauri::{AppHandle, Manager, Url, WebviewUrl, WebviewWindowBuilder};
 use tauri_plugin_opener::OpenerExt;
 
 /// The École+ site. Change it here and in src/index.html when the domain changes.
-const SITE_HOST: &str = "web-production-ff5770fd.up.railway.app";
+const SITE_HOST: &str = "www.gerermonecole.com";
 
 /// Runs in every page of the site: links meant for a new tab open in the app (a document of the
 /// site, such as an invoice) or in the browser (anything else: WhatsApp, e-mail, phone).

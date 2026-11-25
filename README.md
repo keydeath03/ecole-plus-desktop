@@ -15,7 +15,7 @@ Faite avec [Tauri](https://tauri.app) : le fichier d'installation pèse quelques
 
 ## Changer l'adresse du site (nom de domaine)
 
-Remplacer `web-production-ff5770fd.up.railway.app` dans ces trois fichiers :
+Remplacer `www.gerermonecole.com` dans ces trois fichiers :
 `src-tauri/src/main.rs`, `src/index.html` et `src-tauri/capabilities/default.json`.
 Puis publier une nouvelle version.
 
