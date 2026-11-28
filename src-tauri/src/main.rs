@@ -7,7 +7,7 @@ use tauri::webview::DownloadEvent;
 use tauri::{AppHandle, Manager, Url, WebviewUrl, WebviewWindowBuilder};
 use tauri_plugin_opener::OpenerExt;
 
-/// The École+ site. Change it here and in src/index.html when the domain changes.
+/// The Gérer mon école site. Change it here and in src/index.html when the domain changes.
 const SITE_HOST: &str = "www.gerermonecole.com";
 
 /// Runs in every page of the site: links meant for a new tab open in the app (a document of the
@@ -86,7 +86,7 @@ fn open_document(app: AppHandle, url: String) -> Result<(), String> {
     let label = format!("doc-{}", DOCUMENTS.fetch_add(1, Ordering::Relaxed));
     let handle = app.clone();
     WebviewWindowBuilder::new(&app, label, WebviewUrl::External(url))
-        .title("École+")
+        .title("Gérer mon école")
         .inner_size(900.0, 1000.0)
         .min_inner_size(480.0, 400.0)
         .initialization_script(LINKS_SCRIPT)
@@ -115,7 +115,7 @@ fn main() {
         .setup(|app| {
             let handle = app.handle().clone();
             WebviewWindowBuilder::new(app, "main", WebviewUrl::App("index.html".into()))
-                .title("École+")
+                .title("Gérer mon école")
                 .inner_size(1280.0, 820.0)
                 .min_inner_size(900.0, 600.0)
                 .center()
@@ -129,5 +129,5 @@ fn main() {
             Ok(())
         })
         .run(tauri::generate_context!())
-        .expect("École+ n'a pas pu démarrer");
+        .expect("Gérer mon école n'a pas pu démarrer");
 }

@@ -1,6 +1,6 @@
-# École+ pour Windows et Mac
+# Gérer mon école pour Windows et Mac
 
-L'application de bureau d'École+. C'est une fenêtre qui ouvre le site d'École+ : les mises à jour
+L'application de bureau de Gérer mon école. C'est une fenêtre qui ouvre le site de Gérer mon école : les mises à jour
 du site arrivent donc toutes seules dans l'application, sans la réinstaller.
 
 Faite avec [Tauri](https://tauri.app) : le fichier d'installation pèse quelques Mo.
@@ -28,17 +28,17 @@ Puis publier une nouvelle version.
 git tag v1.0.1 && git push origin main v1.0.1
 ```
 
-GitHub fabrique alors `EcolePlus-Windows.exe` et `EcolePlus-Mac.dmg` (environ 15 minutes) et les met
+GitHub fabrique alors `GererMonEcole-Windows.exe` et `GererMonEcole-Mac.dmg` (environ 15 minutes) et les met
 dans « Releases ». Le site les propose toujours par ces liens :
 
-- https://github.com/keydeath03/ecole-plus-desktop/releases/latest/download/EcolePlus-Windows.exe
-- https://github.com/keydeath03/ecole-plus-desktop/releases/latest/download/EcolePlus-Mac.dmg
+- https://github.com/keydeath03/ecole-plus-desktop/releases/latest/download/GererMonEcole-Windows.exe
+- https://github.com/keydeath03/ecole-plus-desktop/releases/latest/download/GererMonEcole-Mac.dmg
 
 ## Signature
 
 Sans certificat, Windows affiche « Windows a protégé votre ordinateur » (cliquer « Informations
 complémentaires » puis « Exécuter quand même ») et le Mac refuse d'ouvrir l'application la première fois
-(clic droit sur École+ > Ouvrir, ou Réglages Système > Confidentialité et sécurité > Ouvrir quand même).
+(clic droit sur Gérer mon école > Ouvrir, ou Réglages Système > Confidentialité et sécurité > Ouvrir quand même).
 Une fois la société créée : compte développeur Apple (signature et notarisation) et certificat Windows.
 
 ## Travailler sur l'application

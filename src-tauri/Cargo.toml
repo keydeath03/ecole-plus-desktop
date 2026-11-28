@@ -1,7 +1,7 @@
 [package]
 name = "ecoleplus"
-version = "1.0.2"
-description = "École+ pour Windows et Mac"
+version = "1.0.3"
+description = "Gérer mon école pour Windows et Mac"
 edition = "2021"
 
 [build-dependencies]

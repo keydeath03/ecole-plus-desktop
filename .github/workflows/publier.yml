@@ -38,21 +38,24 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: ${{ github.ref_name }}
-          releaseName: 'École+ ${{ github.ref_name }}'
-          releaseBody: "Application École+ pour Windows et Mac. Téléchargez EcolePlus-Windows.exe ou EcolePlus-Mac.dmg."
+          releaseName: 'Gérer mon école ${{ github.ref_name }}'
+          releaseBody: "Application Gérer mon école pour Windows et Mac. Téléchargez GererMonEcole-Windows.exe ou GererMonEcole-Mac.dmg."
           releaseDraft: false
           prerelease: false
           args: ${{ matrix.args }}
-      # The site links to fixed names (…/releases/latest/download/EcolePlus-Windows.exe), whatever the version.
+      # The site links to fixed names (…/releases/latest/download/GererMonEcole-Windows.exe), whatever the version.
+      # The old EcolePlus-* names are uploaded too, so links already shared keep working.
       - name: Fichiers aux noms fixes
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "$RUNNER_OS" = "Windows" ]; then
-            cp "$(ls src-tauri/target/release/bundle/nsis/*-setup.exe | head -1)" EcolePlus-Windows.exe
-            gh release upload "$GITHUB_REF_NAME" EcolePlus-Windows.exe --clobber
+            cp "$(ls src-tauri/target/release/bundle/nsis/*-setup.exe | head -1)" GererMonEcole-Windows.exe
+            cp GererMonEcole-Windows.exe EcolePlus-Windows.exe
+            gh release upload "$GITHUB_REF_NAME" GererMonEcole-Windows.exe EcolePlus-Windows.exe --clobber
           else
-            cp "$(ls src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg | head -1)" EcolePlus-Mac.dmg
-            gh release upload "$GITHUB_REF_NAME" EcolePlus-Mac.dmg --clobber
+            cp "$(ls src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg | head -1)" GererMonEcole-Mac.dmg
+            cp GererMonEcole-Mac.dmg EcolePlus-Mac.dmg
+            gh release upload "$GITHUB_REF_NAME" GererMonEcole-Mac.dmg EcolePlus-Mac.dmg --clobber
           fi
