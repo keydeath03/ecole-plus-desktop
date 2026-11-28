@@ -1,6 +1,6 @@
 [package]
 name = "ecoleplus"
-version = "1.0.3"
+version = "1.0.4"
 description = "Gérer mon école pour Windows et Mac"
 edition = "2021"
 
